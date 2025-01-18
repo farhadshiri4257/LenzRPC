@@ -42,7 +42,7 @@ NAMESPACE(proto_proxy)
         {
         private:
             /** @attention define immutable property, in outside of class only readable
-             *              if write into property, The compiler will generate a legitimate warning
+             *              if written into a property, The compiler will generate a legitimate warning
              */
             /*1:*/ proto_proxy::entity::CProperty<transaction_type_t> transaction_type_;
             /*2:*/ proto_proxy::entity::CProperty<company_code_t> company_id_;
@@ -119,7 +119,7 @@ NAMESPACE(proto_proxy)
                                                                                                      serial_logic_hw_{""}                                /*19:*/
             {
                 static_assert(sizeof(InputTerminalQRConsume_t) < MAX_PROTO_BUF_MODEL_SIZE, "Input model size must be less than < 512byte .");
-                static_assert(sizeof(RPC_TERMINAL_QR_CONSUME) < REMOTE_FUNCTION_NAME_SIZE, "RPC_TERMINAL_QR_CONSUME function name can't great than 32 byte!");
+                static_assert(sizeof(RPC_TERMINAL_QR_CONSUME) < REMOTE_FUNCTION_NAME_SIZE, "RPC_TERMINAL_QR_CONSUME function name can't greater than 32 bytes!");
 
                 base_protobuf_frame_ctx_.remote_function.append(RPC_TERMINAL_QR_CONSUME);
                 header_.table[RPC_FUNC_IDX] = (uint8_t)(base_protobuf_frame_ctx_.remote_function.length() & 0xFF);
@@ -142,7 +142,7 @@ NAMESPACE(proto_proxy)
             inline const protohdr_t &serialize_entity() override
             {
                 /*1- serialize all data into stream buffer */
-                /*Important: Set tcp ethernet packet header,
+                /*Important: Set TCP ethernet packet header,
                              therefore check this header by router switch server.!
                 */
 
