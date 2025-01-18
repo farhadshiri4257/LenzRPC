@@ -84,16 +84,16 @@ NAMESPACE(proto_proxy)
                 if (pay_load_stream == nullptr)
                     LOG_ERR("input stream protobuf is NULL!");
 
-                /*1- set the magic buffer in to header */
+                /*1- set the magic buffer into header */
                 pay_load_.magic_buf = MAGIC_BYTE;
 
-                /*2- set the data body length in to header */
+                /*2- set the data body length into header */
                 memmove(&pay_load_.header, (table_size_t *)&header, sizeof(table_size_t));
 
-                /*3- set the data body stream in to header */
+                /*3- set the data body stream into header */
                 memmove(pay_load_.stream, pay_load_stream, pay_load_stream_size);
 
-                /*4- set the crc chk for data body stream in to header */
+                /*4- set the crc chk for data body stream into header */
                 pay_load_.crc_chk = check_validation_data(pay_load_.stream);
 
                 tx_iovec_.iov_base = (void *)&pay_load_;
@@ -107,7 +107,7 @@ NAMESPACE(proto_proxy)
 
 
             /**
-             * @brief Set the rx proto buf stream object
+             * @brief Set the RX proto buf stream object
              *
              */
             template <typename OUT_MODEL, size_t OUT_MODEL_SIZE>
