@@ -132,7 +132,7 @@ NAMESPACE(proto_proxy)
 			}
 
 			/**
-			 * @brief get none const refernce property
+			 * @brief get none const reference property
 			 * 
 			 * @return property_type& 
 			 */
@@ -142,7 +142,7 @@ NAMESPACE(proto_proxy)
 			}
 
 			/**
-			 * @brief get const refernce property
+			 * @brief get const reference property
 			 * 
 			 * @return const property_type& 
 			 */
