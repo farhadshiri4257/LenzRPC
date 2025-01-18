@@ -40,28 +40,28 @@ using namespace proto_proxy::dataModel;
  *        this operation same with all other API routine.
  *
  * @attention Important Note-1: (assertion)
- *            the MODEL_CLASS certainly derived from this class proto_proxy::interface::CEntityInterface<OUT_MODEL_ENTITY>,
+ *            The MODEL_CLASS certainly derived from this class proto_proxy::interface::CEntityInterface<OUT_MODEL_ENTITY>,
  *            and override pure virtual member function.
  *
  * @attention Important Note-2: (thread safety)
- *            because proxy_ctrlr is singleton instance,
- *            therfore all method in class can be compatible for
- *            thread safety paradigm and so all method is immutable method,
+ *            because proxy_ctrlr is a singleton instance,
+ *            therefore all methods in a class can be compatible for
+ *            thread safety paradigm and so all methods is an immutable method,
  *            but mutable object eliminated const by const_cast to rvalue, and this situation guaranteed by,
- *            The lowest object lifetime scope paradigm with the care of c++ compiler.
+ *            The lowest object lifetime scope paradigm with the care of a C++ compiler.
  *
  * @attention Important Note-3: (restricted)
- *            stack frame in android with device LENZ-E60 is expensive and is limited size.
- *            therefore if needed large variable, only defined in the HEAP.
+ *            stack frame in Android with device LENZ-E60 is expensive and is limited in size.
+ *            therefore if needed large variable, is only defined in the HEAP.
  *
  * @attention Important Note-4: (recommendation)
- *            is not recommended change the virtual memory size for stack frame.
+ *            is not recommended to change the virtual memory size for the stack frame.
  *
  *
  * @attention when router switch server received data to the client, endpoint connection teardown by the server
- *            therfore in client side can't the persistent the connection.
- *            If the possibility of persistent the connection with the client is implemented by the server,
- *            the connection building step can be done only once on the client side.
+ *            therefore in client side can't the persistent the connection.
+ *            If the possibility of persistent connection with the client is implemented by the server,
+ *            the connection-building step can be done only once on the client side.
  *
  * @tparam OUT_MODEL_ENTITY
  * @tparam MODEL_CLASS
@@ -75,17 +75,17 @@ RPC_ERROR_CTX CProxyCtrlr::evaluate_request(const MODEL_CLASS &entity_instance, 
     static_assert(std::is_base_of<proto_proxy::interface::IEntityModel<IN_MODEL, OUT_MODEL_ENTITY>, MODEL_CLASS>::value,
                   "MODEL_CLASS must be derived from base proto_proxy::interface::CEntityInterface");
 
-    /** @remark this generic method it has several stages as follows:
+    /** @remark This generic method has several stages as follows:
      *          1- check the availability device network connection.
      *          2- build the connection session with the router switch server(RSW).
      *          3- start ticket timer,because send(),connect() process can't non-bloking operation.
      *          4- serialize input entity model data member to protobuf stream.
      *          5- map stream buffer to iovec message
-     *          6- send protobuf stream to the server
+     *          6- send the protobuf stream to the server
      *          7- deserialize protobuf stream to output entity model data member.
      *          8- map stream buffer to iovec message
-     *          9- receive the protobuf stream from router switch server.
-     *          10- emit event for close the session connection.
+     *          9- receive the protobuf stream from the router switch server.
+     *          10- emit an event to close the session connection.
      */
 
     /*1- check network status */
@@ -129,7 +129,7 @@ RPC_ERROR_CTX CProxyCtrlr::evaluate_request(const MODEL_CLASS &entity_instance, 
         output_model->rsw_request_status = RES_RSW(REQUEST_TIMEOUT_CORE);
     }*/
 
-    /*5- when send / recv in session is done, must be emit the close session event.*/
+    /*5- when sending / recv in session is done, must emit the close session event.*/
     emit_event(closeSession);
 
     /*6- check session status */
@@ -167,7 +167,7 @@ RPC_ERROR_CTX CProxyCtrlr::request_for_connect(const InputRequestForConnect_t *c
         is_nullptr((*out_req_connect), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_request_for_connect_t req_connect_protobuf_instance(*in_req_connect);
     return (evaluate_request<InputRequestForConnect_t, OutputRequestForConnect_t>(req_connect_protobuf_instance, (*out_req_connect)));
 }
@@ -190,7 +190,7 @@ RPC_ERROR_CTX CProxyCtrlr::request_for_keys(const InputRequestForKeys_t *const *
         is_nullptr((*out_request_keys), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_request_for_key_t req_key_protobuf_instance(*in_req_keys);
     return (evaluate_request<InputRequestForKeys_t, OutputRequestForKeys_t>(req_key_protobuf_instance, (*out_request_keys)));
 }
@@ -259,7 +259,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_card_consume(const InputTerminalCardConsume_
         is_nullptr((*out_terminal_card_consume), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_card_consume_t card_consume_protobuf_instance(*in_terminal_card_consume);
     return (evaluate_request<InputTerminalCardConsume_t, OutputTerminalCardConsume_t>(card_consume_protobuf_instance, (*out_terminal_card_consume)));
 }
@@ -282,7 +282,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_group_card_consume(const InputTerminalGroupC
         is_nullptr((*out_terminal_gr_card_consume), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_group_card_consume_t card_consume_protobuf_instance(*in_terminal_gr_card_consume);
     return (evaluate_request<InputTerminalGroupCardConsume_t, OutputTerminalGroupCardConsume_t>(card_consume_protobuf_instance, (*out_terminal_gr_card_consume)));
 }
@@ -305,7 +305,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_QR_consume(const InputTerminalQRConsume_t *c
         is_nullptr((*out_terminal_QR_consume), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_QR_consume_t QR_consume_protobuf_instance(*in_terminal_QR_consume);
     return (evaluate_request<InputTerminalQRConsume_t, OutputTerminalQRConsume_t>(QR_consume_protobuf_instance, (*out_terminal_QR_consume)));
 }
@@ -328,7 +328,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_group_QR_consume(const InputTerminalGroupQRC
         is_nullptr((*out_terminal_gr_QR_consume), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_group_QR_consume_t group_QR_consume_protobuf_instance(*in_terminal_gr_QR_consume);
     return (evaluate_request<InputTerminalGroupQRConsume_t, OutputTerminalGroupQRConsume_t>(group_QR_consume_protobuf_instance, (*out_terminal_gr_QR_consume)));
 }
@@ -351,7 +351,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_inquery(const InputTerminalInquery_t *const 
         is_nullptr((*out_terminal_inquery), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_inquery_t inquery_protobuf_instance(*in_terminal_inquery);
     return (evaluate_request<InputTerminalInquery_t, OutputTerminalInquery_t>(inquery_protobuf_instance, (*out_terminal_inquery)));
 }
@@ -374,7 +374,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_inquery_group(const InputTerminalInqueryGrou
         is_nullptr((*out_terminal_inquery_gr), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_inquery_group_t inquery_group_protobuf_instance(*in_terminal_inquery_gr);
     return (evaluate_request<InputTerminalInqueryGroup_t, OutputTerminalInqueryGroup_t>(inquery_group_protobuf_instance, (*out_terminal_inquery_gr)));
 }
@@ -397,7 +397,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_card_charge_wallet(const InputTerminalCardCh
         is_nullptr((*out_terminal_card_charge_Wallet), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_charg_card_wallet_consume_t inquery_group_protobuf_instance(*in_terminal_card_charge_Wallet);
     return (evaluate_request<InputTerminalCardChargeWallet_t, OutputTerminalCardChargeWallet_t>(inquery_group_protobuf_instance, (*out_terminal_card_charge_Wallet)));
 }
@@ -420,7 +420,7 @@ RPC_ERROR_CTX CProxyCtrlr::terminal_inquery_last_transaction(const InputTerminal
         is_nullptr((*out_terminal_inquery_last_transaction), ERR_OUTPUT_MODEL_IS_NULL))
         return (error_context_);
 
-    /* create new object from model helper class */
+    /* create a new object from model helper class */
     const centity_terminal_inquery_last_trans_t inquery_last_protobuf_instance(*in_terminal_inquery_last_transaction);
     return (evaluate_request<InputTerminalInqueryLastTransaction_t, OutputTerminalInqueryLastTransaction_t>(inquery_last_protobuf_instance, (*out_terminal_inquery_last_transaction)));
 }
