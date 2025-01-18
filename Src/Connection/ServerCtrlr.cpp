@@ -32,7 +32,7 @@
 #include <chrono>
 
 using namespace proto_proxy::network;
-/** @note server_ctrlr object in unique, this static memeber is safe!*/
+/** @note server_ctrlr object in unique, this static member is safe!*/
 /** @brief */
 sigset_t CServerCtrlr::s_mask_;
 /** @brief */
@@ -54,7 +54,7 @@ NAMESPACE(global)
  * @brief device low-level api factory loader function
  *
  * @attention because this function low-level is important,
- *            must be load explicit in memory space proxy controller library.
+ *            must be loaded explicitly in the memory space proxy controller library.
  *
  * @return error_num_t error context resource
  */
@@ -80,8 +80,8 @@ error_num_t CServerCtrlr::bonding_low_level_routine()
 
 /**
  * @brief
- * IMPORTANT: Don't change this options, t
- *                   he best options are set to communicate with the server correctly.
+ * IMPORTANT: Don't change these options, t
+ *                   the best options are set to communicate with the server correctly.
  *
  * @return error_num_t error context resource
  */
@@ -174,7 +174,7 @@ error_num_t CServerCtrlr::set_socket_option()
 }
 
 /**
- * @brief device mac needed by server when sending protobuf stream
+ * @brief device mac needed by the server when sending protobuf stream
  *
  * @return error_num_t error context resource
  */
@@ -198,7 +198,7 @@ error_num_t CServerCtrlr::get_device_mac_address(const byte8_t *__nic_name, u_ch
 }
 
 /**
- * @brief bonding to low-level device function -> queryDataStateOfC(), get status from radio interface layer deamon
+ * @brief bonding to low-level device function -> queryDataStateOfC(), get status from radio interface layer daemon
  * @param network status code
  * @return error_num_t error context resource
  */
@@ -348,9 +348,9 @@ error_num_t CServerCtrlr::init_session_monitoring()
  * @brief Because the devices use the internet network to send packets,
  *        usually sending a piece of a very large buffer stream to the RSW server
  *        may cause some bytes to be lost when passing through different network hops.
- *        or it is possible that the layer force netlink to resend some packets,
+ *        or it is possible that the layer forces Netlink to resend some packets,
  *        which in any case creates overhead for the RSW server.
- *        therefore, packet fragmentation algorithm has been used at the time of sending.
+ *        Therefore, the packet fragmentation algorithm has been used at the time of sending.
  *
  * @param tx_msghdr
  * @param sended_byte
@@ -376,14 +376,14 @@ error_num_t CServerCtrlr::write_multiplex_v1(const protohdr_t &__tx_msghdr, ssiz
         _protobuf[_sent_counter].iov_len = RSW_PACKET_SIZE;
         _protohdr.msg_iov = &_protobuf[_sent_counter];
         _protohdr.msg_iovlen = 1;
-        /** @note send user io vector message in kernel path, is better solution because in
+        /** @note send user io vector message in kernel path, is a better solution because in
          *        one syscall all data stream is sent to the server.
          */
         //__sended_byte += sendmsg(s_event_list_.data.fd, &_protohdr, MSG_WAITALL | MSG_MORE | MSG_TRUNC | MSG_CMSG_CLOEXEC);
         __sended_byte += write(s_event_list_.data.fd, _protohdr.msg_iov->iov_base, _protohdr.msg_iov->iov_len);
-        /** @note because the last packet is very important, again sending  to RSW.
-         *         RSW promised, if the receving packets is duplicated, drop it.
-         *         therfore sending duplicate last packet is better than last packet not recevied by RSW
+        /** @note because the last packet is very important, again sending it  to RSW.
+         *         RSW promised, that if the receiving packets are duplicated, drop it.
+         *         therefore sending a duplicate last packet is better than the last packet not received by RSW
          */
         if (_is_last_packet)
         {
@@ -394,7 +394,7 @@ error_num_t CServerCtrlr::write_multiplex_v1(const protohdr_t &__tx_msghdr, ssiz
 
         if (__sended_byte < 0 && (errno > 0 && errno != EINTR))
         {
-            LOG_ERR("Can't sent data to the server!!! with errorno(%d) - __sended_byte(%u)", errno, __sended_byte);
+            LOG_ERR("Can't sent data to the server!!! with error no(%d) - __sended_byte(%u)", errno, __sended_byte);
             return (ERR_SEND_BYTE_IS_ZERO);
         }
 
@@ -446,7 +446,7 @@ error_num_t CServerCtrlr::write_multiplex_v2(const protohdr_t &__tx_msghdr, ssiz
 
         if (__sended_byte < 0 || (errno > 0 && errno != EINTR))
         {
-            LOG_ERR("Can't sent data to the server!!! with errorno(%d) - __sended_byte(%u)", errno, __sended_byte);
+            LOG_ERR("Can't sent data to the server!!! with error no(%d) - __sended_byte(%u)", errno, __sended_byte);
             return (ERR_SEND_BYTE_IS_ZERO);
         }
 
@@ -493,7 +493,7 @@ error_num_t CServerCtrlr::write_multiplex_v3(const protohdr_t &__tx_msghdr, ssiz
 
         if (__sended_byte < 0 || (errno > 0 && errno != EINTR))
         {
-            LOG_ERR("Can't sent data to the server!!! with errorno(%d) - __sended_byte(%u)", errno, __sended_byte);
+            LOG_ERR("Can't sent data to the server!!! with error no(%d) - __sended_byte(%u)", errno, __sended_byte);
             return (ERR_SEND_BYTE_IS_ZERO);
         }
 
@@ -534,8 +534,8 @@ error_num_t CServerCtrlr::read_multiplex(protohdr_t &__rx_msghdr, ssize_t &__rec
         /** @attention
          *          Important note:
          *          If the recvmsg() blocks the current thread, it is possible that no data will be sent to receive from the server.
-         *          therefore, the operation of receiving data should be non-block, and we should control this process using a real-time time stamp counter.
-         *          and the value you define for this timer should not be less than RSW expired connection life-time in seconds.
+         *          Therefore, the operation of receiving data should be non-block, and we should control this process using a real-time time stamp counter.
+         *          and the value you define for this timer should not be less than RSW expired connection lifetime in seconds.
          * */
         auto _end_recv_timeout = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> timeout = _end_recv_timeout - _start_recv_timeout;
@@ -559,7 +559,7 @@ error_num_t CServerCtrlr::read_multiplex(protohdr_t &__rx_msghdr, ssize_t &__rec
                     continue;
                 if (__received_byte <= 0 && errno > 0)
                 {
-                    LOG_ERR("Can't receive data from server!!! with errorno(%d)", errno);
+                    LOG_ERR("Can't receive data from server!!! with error no(%d)", errno);
                     if (errno == ECONNRESET)
                         return (ERR_RSW_PEER_RESET);
                     return (ERR_RECV_BYTE_IS_ZERO);
@@ -608,7 +608,7 @@ error_num_t CServerCtrlr::open_session()
     int status = getaddrinfo(server_option_.client.server, server_option_.client.port, &_addr_criteria, &s_server_resource_ctx_.server_addr_info);
     if (status != 0)
     {
-        LOG_ERR("Resolve DNS Failed: Can't get ip address! (%s) -- %s\n", server_option_.client.server, gai_strerror(status));
+        LOG_ERR("Resolve DNS Failed: Can't get IP address! (%s) -- %s\n", server_option_.client.server, gai_strerror(status));
         error_code_ = status;
         return (ERR_ADDR_INFO_TRANSLATE);
     }
@@ -619,7 +619,7 @@ error_num_t CServerCtrlr::open_session()
         if (s_server_resource_ctx_.socket_handle < INVALID_SERVER_PORT)
             continue;
 
-        /* because MAC address in lenz device is not available, comment this section */
+        /* because the MAC address in the lenz device is not available, comment on this section */
         /*u_char(mac_address)[RSW_ETH_ALEN]{0};
           get_device_mac_address("rmnet_data0", mac_address);
           LOG_INFO("mac_address (%s)", mac_address);
@@ -627,15 +627,15 @@ error_num_t CServerCtrlr::open_session()
         set_socket_option();
 
         /** @attention because Connect() and Send() method operation can't set the non-blocking style,
-         *             and when request is send by device, if Connect() method can't connect to the RSW
-         *             or Send() can't send data stream to the RSW, the caller thread is blocked.!!
-         *             therefore when request is arrived with this object,request bounding with expiration ticket timer controller object.
+         *             and when the request is sent by the device if the Connect() method can't connect to the RSW
+         *             or Send() can't send a data stream to the RSW, the caller thread is blocked.!!
+         *             Therefore when the request arrives with this object, the request is bound with the expiration ticket timer controller object.
          *
          *             Ticket Timer state:
-         *                  1) if send / recv is compelete, timer is explicit disarm with proxy_ctrlr object.
-         *                  2) if send / recv can't completed, example can't to the RSW,
-         *                     and waiting request time-out is finished, timer is implicit disarm with kernel.
-         *                  3) if can't connect to the RSW, timer is implicit disarm with kernel.
+         *                  1) if send / recv is complete, the timer is explicitly disarm with the proxy_ctrlr object.
+         *                  2) if send / recv can't completed, for example, can't to the RSW,
+         *                     and waiting request time-out is finished, the timer is implicitly disarmed with kernel.
+         *                  3) if can't connect to the RSW, the timer is implicitly disarmed with the kernel.
          */
         if (session_timer_set(s_tmer_id_, &ITIMER_SPEC_0IT_INTERVAL_SEC_5IT_VALUE_SEC_INITIALIZER) == -1)
             LOG_ERR("session_timer_set");
