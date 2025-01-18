@@ -82,7 +82,7 @@ NAMESPACE(proto_proxy)
         {
             long recv_buf;
             long send_buf;
-            double wait_time_sec; // Important: this value must be less than router server switch ticket timer expired value.
+            double wait_time_sec; // Important: this value must be less than the router server switch ticket timer expired value.
             clientData_t client;
         } server_option_t;
 
