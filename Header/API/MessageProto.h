@@ -33,33 +33,33 @@
 #define __MESSAGE_PROTOCOL_H__ 1
 /***************************************************************************************************************
  * IMPORTANT @note:
- *  1) Note    : if set -DVERBOSE_INFO flag in make file, show the log message info in runtime mode.
+ *  1) Note   : if set -DVERBOSE_INFO flag in the make file, show the log message info in runtime mode.
  *
  *  2) WARNING : all defined macro (*_SIZE) size, must be aligned to VIRTUAL_PAGE_SIZE,
- *               usually is 64 in endpoint and 32 in device if ABI is ARMV7A.
+ *               usually is 64 in the endpoint and 32 in the device if ABI is ARMV7A.
  *
- *  3) WARNING : all data model defined in structures, the care of cpu cache coherent by compiler builtin
- *               attributes, therefore should not transposition fields order in the structures.
+ *  3) WARNING: all data models defined in structures, the care of CPU cache coherent by compiler builtin
+ *               attributes, therefore should not transposition fields in the order in the structures.
  *
- *  4) WARNING : don't change this behavior!!!
- *               becuase all structure protobuf model aligned, when sending by device
- *               therefore endpoint is used aligning recv data stream and map to entity model.
+ *  4) WARNING: don't change this behaviour!!!
+ *               because all structure protobuf model aligned, when sending by device
+ *               therefore endpoint is used to align the recv data stream and map to the entity model.
  *  5) @attention:
  *               how to add new API operation in ProtoBuf Proxy Library:
- *               1) define a two new structure in specfic style
- *                  1-1) structre Input...
- *                  1-2) structre Output...
- *               2) define macro for name of RPC function
- *               3) define macro for siganture of RPC function
- *               4) add new structrue in server_context structre
+ *               1) define two new structures in a specific style
+ *                  1-1) structure Input...
+ *                  1-2) Structure Output...
+ *               2) define a macro for the name of the RPC function
+ *               3) define a macro for the signature of the RPC function
+ *               4) add new structure in server_context structure
  *               5) add in rpc_name_lookup_t enum type
- *               6) add in lookup table RPC name
- *               7) add new api function name in ProtoLib.cpp
- *               8) add new api function name in Proxy class
- *               9) on the function proxy class only need create new object from new API class in section 10
- *               10) create new class inhreted from proto_proxy::interface::IEntityModel
- *               11) in the new model class must be defined serialize_entity() operation
- *                12) set the header and body the serialize_entity() method
+ *               6) add in the lookup table the  RPC name
+ *               7) add a new api function name in ProtoLib.cpp
+ *               8) add a new api function name in the Proxy class
+ *               9) on the function proxy class only need to create a new object from the new API class in section 10
+ *               10) create a new class inherited from proto_proxy::interface::IEntityModel
+ *               11) In the new model class must be defined as serialize_entity() operation
+ *               12) Set the header and body of the serialize_entity() method
  ***************************************************************************************************************/
 
 /**************************************************************************************************************]
@@ -82,45 +82,45 @@
 |                                                                                                              |
 \**************************************************************************************************************/
 
-/*only include commen header with device and RSW server */
+/*only include a common header with the device and RSW server */
 #include <zlib.h>
 
-/*IMPORTANT NOTE:Maximum size is : 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define REQUEST_INPUT_FIELD_SIZE 32
 #define REQUEST_INPUT_FIELD_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define REQUEST_OUTPUT_FIELD_SIZE 32
 #define REQUEST_OUTPUT_FIELD_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define SERIAL_HW_FIELD_SIZE 32
 #define SERIAL_HW_FIELD_SIZE_ACTUAL 31
 /*IMPORTANT NOTE:Maximum size is : 32-byte(256bit) value + 1-byte null-terminated, not checked in prorobuf library! */
 #define REQUEST_KEY_SIZE 32 + 1 // 256bit needed
-/*IMPORTANT NOTE:Maximum size is : 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define QR_BUFFER_SIZE 32
 #define QR_BUFFER_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define UID_BUFFER_SIZE 32
 #define UID_BUFFER_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define DATE_BUFFER_SIZE 32
 #define DATE_BUFFER_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define MESSAGE_BUFFER_SIZE 32
 #define MESSAGE_BUFFER_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define VOUCHER_BUFFER_SIZE 32
 #define VOUCHER_BUFFER_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define CARD_SERIAL_SIZE 32
 #define CARD_SERIAL_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define VALIDATION_BUFFER_SIZE 32
 #define VALIDATION_BUFFER_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 31-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define WALLET_UID_BUFFER_SIZE 32
 #define WALLET_UID_BUFFER_SIZE_ACTUAL 31
-/*IMPORTANT NOTE:Maximum size is : 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
+/*IMPORTANT NOTE: Maximum size is: 32-byte value + 1-byte null-terminated, not checked in prorobuf library! */
 #define RRN_ID_SIZE 32
 #define RRN_ID_SIZE_ACTUAL 31
 /*IMPORTANT NOTE:Maximum size is : 8-byte value(64bit) + 1-byte null-terminated, not checked in prorobuf library! */
