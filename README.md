@@ -51,6 +51,8 @@ This library is designed using C++ and RPC techniques using NDK technology, with
   
 # Usage
 ```c++
+#include "MessageProto.h"
+
 const server_context_t *g_server __rte_align_cache_line = NULL;
 byte8_t *mac_addr = (byte8_t *)calloc(1 * RSW_ETH_ALEN, sizeof(RSW_ETH_ALEN)); // no need longer,
 ExecCmd("getprop persist.service.bdroid.bdaddr", mac_addr, 0);
