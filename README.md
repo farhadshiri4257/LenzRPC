@@ -1,6 +1,9 @@
 # LenzRPC
 This library is used to implement messages exchanged between servers in a distributed micropayment system for public transportation systems.
 This library is designed using C++ and RPC techniques using NDK technology, without the use of dependent libraries. This source is developed for use in devices that are Android (Linux-based) operating systems and can be compatible with ARMv7 processor architecture.
+![Activity Model - Copy](https://github.com/user-attachments/assets/8f5424f6-502d-4c5a-bc07-a626dbd07c69)
+
+![RPC](https://github.com/user-attachments/assets/a35297fe-d127-4e50-af14-b324f13959ed)
 
 > [!TIP]
 > # Distributed system
@@ -115,4 +118,24 @@ if (likely(instance_err_msg == NULL) && likely(g_server != NULL))
   }
 }
 ```
+# Dependency
+- install [snapd] service. 
+- install [snap andriod-adb --edge --devmode]
+- install [glibc, glibc-devel, libstdc++, linux-glibc, glibc-devel-static]
+- install [android-ndk-r15c]
+
+# Clean & Building Library
+```script
+#!/bin/sh
+rm -f -r -d libs
+rm -f -r -d obj
+ndk-build NDK_PROJECT_PATH=./ APP_BUILD_SCRIPT=./BuildBinary.mk NDK_APPLICATION_MK=./Application.mk NDK_TOOLCHAIN_VERSION=4.8 clean
+clear
+ndk-build -j8 NDK_PROJECT_PATH=./ NDK_APPLICATION_MK=./Application.mk 
+```
+
+# Installing and Running
+add /library_path/-lprotobuf into BuildBinary.mk file, in the main project.
+
+
 
