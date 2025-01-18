@@ -92,9 +92,9 @@
 using flush_spec_t = struct linger;
 using itimerspec_t = struct itimerspec;
 /** @attention 
-*            this timeout sec must be at least 3 times the WAIT_TIME_FOR_REQUEST_DONE.
+*            This timeout sec must be at least 3 times the WAIT_TIME_FOR_REQUEST_DONE.
 *            Important:
-*            if this value is smaller than WAIT_TIME_FOR_REQUEST_DONE, we will definitely have undefined behavior!!!
+*            if this value is smaller than WAIT_TIME_FOR_REQUEST_DONE, we will have undefined behaviour!!!
 */
 static constexpr itimerspec_t ITIMER_SPEC_0IT_INTERVAL_SEC_5IT_VALUE_SEC_INITIALIZER = {{0, 0}, {(int32_t)(WAIT_TIME_FOR_REQUEST_DONE * 3), 0}};
 static constexpr itimerspec_t ITIMER_SPEC_JIFFY_DISARM_INITIALIZER = {{0, 0}, {0, 0}};
