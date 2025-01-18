@@ -72,7 +72,7 @@ NAMESPACE(proto_proxy)
             protobuf_frame_ctx_t base_protobuf_frame_ctx_ __attribute__((__aligned__(RTE_CACHELINE)));              // 128b
 
             /** @bug Important:
-             *          when used std::istreamstring for stream pool,at runtime sometimes the first 8-bytes of the stream buffer
+             *          When using std::istreamstring for stream pool, at runtime sometimes the first 8 bytes of the stream buffer
              *          in the specified class created an ambiguous data overlap.
              *          that's why this was observed in Android NDKr15 - C++14,
              *          so it was replaced by <StreamPool.h> helper class.
