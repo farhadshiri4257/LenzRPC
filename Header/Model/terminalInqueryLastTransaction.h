@@ -60,7 +60,7 @@ NAMESPACE(proto_proxy)
 
             {
                 static_assert(sizeof(InputTerminalInqueryLastTransaction_t) < MAX_PROTO_BUF_MODEL_SIZE, "Input model size must be less than < 512byte .");
-                static_assert(sizeof(RPC_TERMINAL_INQUERY_LAST_TRANSACTION) < REMOTE_FUNCTION_NAME_SIZE, "RPC_TERMINAL_INQUERY_LAST_TRANSACTION function name can't be great than 32 bytes!");
+                static_assert(sizeof(RPC_TERMINAL_INQUERY_LAST_TRANSACTION) < REMOTE_FUNCTION_NAME_SIZE, "RPC_TERMINAL_INQUERY_LAST_TRANSACTION function name can't be greater than 32 bytes!");
 
                 base_protobuf_frame_ctx_.remote_function.append(RPC_TERMINAL_INQUERY_LAST_TRANSACTION);
                 header_.table[RPC_FUNC_IDX] = (uint8_t)(base_protobuf_frame_ctx_.remote_function.length() & 0xFF);
