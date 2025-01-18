@@ -35,14 +35,14 @@
 
 using namespace proto_proxy;
 
-/** @attention g_cproxy_ctrlr is private variable in this module therefore can't with extern use in other module */
+/** @attention g_cproxy_ctrlr is a private variable in this module therefore can't with extern use in another module */
 const ::dataModel::cproxy_ctrlr_t *g_cproxy_ctrlr = nullptr;
 
-/** @attention g_error_context is private variable in this module therefore can't with extern use in other module */
+/** @attention g_error_context is a private variable in this module therefore can't with extern use in another module */
 error_context_t *g_error_context = nullptr;
 
-/** @attention server is private variable in this module therefore can't with extern use in other module,
- *             because  BSS offset pointer as server variable injected to proxy class
+/** @attention server is a private variable in this module therefore can't with extern used in another module,
+ *             because  BSS offset pointer as server variable injected to the proxy class
  */
 const ::network::cserver_ctrlr_t *g_server;
 
@@ -51,7 +51,7 @@ int32_t monitor_event_fd;
 
 NAMESPACE(global)
 {
-    /** @brief device hardware serial number buffer, this variable can be use extern in other module. */
+    /** @brief device hardware serial number buffer, this variable can be used extern in another module. */
     std::string g_hardware_serial;
     std::string g_mac_address;
     const rswConfigContext_t *g_rswConfigContext;
@@ -101,8 +101,8 @@ extern "C"
 }
 
 /**
- * @brief create new instance of proxy protocol API class in Runtime mode.
- * @attention this function is called only once!
+ * @brief creates a new instance of proxy protocol API class in Runtime mode.
+ * @attention This function is called only once!
  * @return RPC_ERROR_CTX error context object created in runtime mode and contents of the error code.
  */
 RPC_ERROR_CTX OpenSession()
@@ -140,8 +140,8 @@ RPC_ERROR_CTX OpenSession()
 }
 
 /**
- * @brief destroy proxy instance and free resources allocated in global section
- * @attention this function is called only once!
+ * @brief destroy proxy instance and free resources allocated in the global section
+ * @attention This function is called only once!
  * @return true
  * @return false
  */
@@ -271,7 +271,7 @@ RPC_ERROR_CTX TerminalGroupCardConsume(const InputTerminalGroupCardConsume_t *co
 
 /**
  * @brief The time function compares the Timestamp with the current time if its value is less than n (n is in the configuration of the switch),
- *         the transaction is placed in the queue to be sent to the wallet,
+ *         The transaction is placed in the queue to be sent to the wallet,
  *         and the subtraction function from the rapper wallet is called.
  *
  * @param in_terminal_QRConsume
@@ -287,7 +287,7 @@ RPC_ERROR_CTX TerminalQRConsume(const InputTerminalQRConsume_t *const *in_termin
 
 /**
  * @brief The time function compares the Timestamp with the current time if its value is less than n (n is in the configuration of the switch),
- *         the transaction is placed in the queue to be sent to the wallet,
+ *         The transaction is placed in the queue to be sent to the wallet,
  *         and the subtraction function from the rapper wallet is called.
  *
  * @param in_group_QRConsume
@@ -303,7 +303,7 @@ RPC_ERROR_CTX TerminalGroupQRConsume(const InputTerminalGroupQRConsume_t *const 
 
 /**
  * @brief By receiving the above inputs,
- *        the function checks the transaction status and answers the query.
+ *        The function checks the transaction status and answers the query.
  *
  * @param in_terminal_inquery
  * @param out_terminal_inquery
