@@ -42,7 +42,7 @@ NAMESPACE(proto_proxy)
         {
         private:
             /** @attention define immutable property, in outside of class only readable
-             *              if write into property, The compiler will generate a legitimate warning
+             *              if written into a property, The compiler will generate a legitimate warning
              */
             /*1:*/ proto_proxy::entity::CProperty<std::string> serial_hw_;
             /*2:*/ proto_proxy::entity::CProperty<std::string> serial_logic_hw_;
@@ -66,7 +66,7 @@ NAMESPACE(proto_proxy)
             {
 
                 static_assert(sizeof(InputRequestForKeys_t) < MAX_PROTO_BUF_MODEL_SIZE, "Input model size must be less than < 512byte .");
-                static_assert(sizeof(RPC_REQUEST_FOR_KEYS) < REMOTE_FUNCTION_NAME_SIZE, "RPC_REQUEST_FOR_CONNECT function name can't great than 32 byte!");
+                static_assert(sizeof(RPC_REQUEST_FOR_KEYS) < REMOTE_FUNCTION_NAME_SIZE, "RPC_REQUEST_FOR_CONNECT function name can't be greater than 32 bytes!");
 
                 base_protobuf_frame_ctx_.remote_function.append(RPC_REQUEST_FOR_KEYS);
                 header_.table[RPC_FUNC_IDX] = (uint8_t)(base_protobuf_frame_ctx_.remote_function.length() & 0xFF);
@@ -89,7 +89,7 @@ NAMESPACE(proto_proxy)
             inline const protohdr_t &serialize_entity() override
             {
                 /*1- serialize all data into stream buffer */
-                /*Important: Set tcp ethernet packet header,
+                /*Important: Set TCP ethernet packet header,
                              therefore check this header by router switch server.!
                 */
                 stream_pool_ << base_protobuf_frame_ctx_.mac_address
