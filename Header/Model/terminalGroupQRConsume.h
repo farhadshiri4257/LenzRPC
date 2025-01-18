@@ -42,7 +42,7 @@ NAMESPACE(proto_proxy)
         {
         private:
             /** @attention define immutable property, in outside of class only readable
-             *              if write into property, The compiler will generate a legitimate warning
+             *              if written into a property, The compiler will generate a legitimate warning
              */
             /*1:*/ proto_proxy::entity::CProperty<transaction_type_t> transaction_type_;
             /*2:*/ proto_proxy::entity::CProperty<company_code_t> company_id_;
@@ -142,7 +142,7 @@ NAMESPACE(proto_proxy)
             inline const protohdr_t &serialize_entity() override
             {
                 /*1- serialize all data into stream buffer */
-                /*Important: Set tcp ethernet packet header,
+                /*Important: Set TCP ethernet packet header,
                              therefore check this header by router switch server.!
                 */
                 stream_pool_ << base_protobuf_frame_ctx_.mac_address
